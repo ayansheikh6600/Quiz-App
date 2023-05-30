@@ -47,11 +47,50 @@
                 <div class="btn btn-success" onclick="submit()">SUBMIT</div>
             </div>
         </form>
-    </div>
+    </div> -->
 
     <div class="startBtn">
-        <button class="btn btn-color">Start Quiz??</button>
+        <button class="btn btn-color" onclick="startQuiz()">Start Quiz??</button>
     </div>
+
+    <div class="quiz-q bg-white">
+        <div>
+            <h1>QUIZ APP</h1>
+        </div>
+        <div class="quiz-head w90 green-border">
+            <div>
+                <h5>Ayan Sheikh</h5>
+                <p class="fw-bold">ayansheikh6600@gmail.com</p>
+            </div>
+            <div>
+                <label class="fw-bold fs-5">Time:</label>
+                <p class="fw-bold fs-5" id="timer">00:00</p>
+
+            </div>
+        </div>
+        <div class="quiz-body w90 green-border">
+            <div>
+                <p class="fs-4 fw-bold" id="question">What is your name?</p>
+            </div>
+            <div class="w90 m-auto mt-3 fs-5">
+                <li class="q-li green-border" id="ans1" onclick="ans(this)">Ayan Sheikh</li>
+                <li class="q-li green-border mt-2" id="ans2" onclick="ans(this)">Wahaj Khan</li>
+                <li class="q-li green-border mt-2" id="ans3" onclick="ans(this)">Saim</li>
+                <li class="q-li green-border mt-2" id="ans4" onclick="ans(this)">Minhaj</li>
+            </div>
+        </div>
+        <div class="quiz-footer w90">
+            <div>
+                <p>1/7</p>
+            </div>
+            <div>
+                <button class="btn btn-success">NEXT</button>
+            </div>
+        </div>
+    </div>
+
+    
+
 </body>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
     integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
