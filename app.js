@@ -25,69 +25,69 @@ var quesArray = [
 
         },
         answer: "Object-Base"
+    },
+    {
+        num: 3,
+        question: "The 'function' and  'var' are known as:",
+        Option: {
+            a: "Keywords",
+            b: "Data types",
+            c: "Declaration statements",
+            d: "Prototypes",
+
+        },
+        answer: "Declaration statements"
     }
-    // {
-    //     num: 3,
-    //     question: "The 'function' and  'var' are known as:",
-    //     Option: {
-    //         a: "Keywords",
-    //         b: "Data types",
-    //         c: "Declaration statements",
-    //         d: "Prototypes",
+    ,
+    {
+        num: 4,
+        question: "who is the present president of pakistan",
+        Option: {
+            a: "Arif Alvi",
+            b: "Imran Khan",
+            c: "Nawaz Sharif",
+            d: "Zardari",
 
-    //     },
-    //     answer: "Declaration statements"
-    // }
-    // ,
-    // {
-    //     num: 4,
-    //     question: "who is the present president of pakistan",
-    //     Option: {
-    //         a: "Arif Alvi",
-    //         b: "Imran Khan",
-    //         c: "Nawaz Sharif",
-    //         d: "Zardari",
+        },
+        answer: "Arif Alvi"
+    }
+    ,
+    {
+        num: 5,
+        question: "How many prayers in a day:",
+        Option: {
+            a: "6",
+            b: "5",
+            c: "3",
+            d: "none",
 
-    //     },
-    //     answer: "Arif Alvi"
-    // }
-    // ,
-    // {
-    //     num: 5,
-    //     question: "How many prayers in a day:",
-    //     Option: {
-    //         a: "6",
-    //         b: "5",
-    //         c: "3",
-    //         d: "none",
+        },
+        answer: "5"
+    },
+    {
+        num: 6,
+        question: "How many total surah in quran",
+        Option: {
+            a: "113",
+            b: "114",
+            c: "112",
+            d: "111",
 
-    //     },
-    //     answer: "5"
-    // },
-    // {
-    //     num: 6,
-    //     question: "How many total surah in quran",
-    //     Option: {
-    //         a: "113",
-    //         b: "114",
-    //         c: "112",
-    //         d: "111",
+        },
+        answer: "114"
+    },
+    {
+        num: 7,
+        question: "The correct sequence of HTML tags for starting a webpage is",
+        Option: {
+            a: "Head, Title, HTML, body",
+            b: "HTML, Body, Title, Head",
+            c: "HTML, Head, Title, Body",
+            d: "HTML, Title , Head,  Body",
 
-    //     },
-    //     answer: "114"
-    // },
-    // {
-    //     num: 7,
-    //     question: "The correct sequence of HTML tags for starting a webpage is",
-    //     Option: {
-    //         a: "Head, Title, HTML, body",
-    //         b: "HTML, Body, Title, Head",
-    //         c: "HTML, Head, Title, Body",
-    //         d: "HTML, Title , Head,  Body",
-
-    //     },
-    //     answer: "HTML, Head, Title, Body"
-    // }
+        },
+        answer: "HTML, Head, Title, Body"
+    }
 ]
 
 var date = new Date
@@ -105,6 +105,17 @@ var startBtn = document.querySelector(".startBtn")
 var inputfeilds = quizWrapper.querySelectorAll("input")
 console.log(inputfeilds)
 var quizQuestion = document.querySelector(".quiz-q")
+var nextBtn = document.querySelector(".nextBtn")
+var question = document.getElementById("question")
+var liParent = document.getElementById("liParent").children
+/// Result Element Get
+var result = document.querySelector(".result")
+var resulImg = document.querySelector(".resultImg")
+var score = document.querySelector(".score")
+var passPercentage = document.querySelector(".percentage")
+var failPara = document.querySelector(".failPara")
+var passPara = document.querySelector(".passPara")
+console.log(resulImg.src)
 
 function submit() {
     for (var input of inputfeilds) {
@@ -120,54 +131,94 @@ function submit() {
 
 }
 
-var question = document.getElementById("question")
-var ans1 = document.getElementById("ans1")
-var ans2 = document.getElementById("ans2")
-var ans3 = document.getElementById("ans3")
-var ans4 = document.getElementById("ans4")
-var timerElement = document.getElementById("timer")
-var startminutes = 10;
-var time = startminutes * 60;
-setInterval(updatecoundowm, 1000);
+
+var counter = 0;
+var CorrectAnsCounter = 0;
+var WrongAnsCounter = 0;
+var TotalScore = 0;
+var totalMark = quesArray.length*5
+console.log(TotalScore)
+
+
+
+
+for (var li of liParent) {
+    li.setAttribute("onclick", "selectOption(this)")
+}
 function startQuiz() {
     startBtn.style.display = "none"
     quizQuestion.style.display = "flex"
 
-    // function updatecoundowm(){
-    //     const minutes = Math.floor(time/60);
-    //     let seconds = time % 60;
+    question.innerHTML = quesArray[counter].question
+    liParent[0].innerHTML = quesArray[counter].Option.a
+    liParent[1].innerHTML = quesArray[counter].Option.b
+    liParent[2].innerHTML = quesArray[counter].Option.c
+    liParent[3].innerHTML = quesArray[counter].Option.d
 
 
-    //     timerElement.innerHTML = ${minutes}: ${seconds};
-    //     time--;
-    // }
+}
+function nextQuestion() {
+    for (var li of liParent) {
+        li.classList.remove("liDisable")
+        li.classList.remove("rigthAns")
+        li.classList.remove("wrongAns")
+        nextBtn.style.display = "none"
+    }
+    if (counter < quesArray.length - 1) {
+        counter++
+        question.innerHTML = quesArray[counter].question
+        liParent[0].innerHTML = quesArray[counter].Option.a
+        liParent[1].innerHTML = quesArray[counter].Option.b
+        liParent[2].innerHTML = quesArray[counter].Option.c
+        liParent[3].innerHTML = quesArray[counter].Option.d
+    }else{
+        quizQuestion.style.display = "none"
+        result.style.display = "flex"
 
+        score.innerHTML = TotalScore
+        percentage = Math.round((TotalScore/totalMark) * 100)
+        if(percentage >= 70){
+            passPercentage.innerHTML = percentage
+            passPara.style.display = "block"
+        }else{
+            failPara.style.display = "block"
+            passPercentage.innerHTML = percentage
+            resulImg.src = "Assets/fail-01.png"
+        }
 
-
-    // for (i = 0; i < quesArray.length; i++) {
-    //     console.log(i)
-    //     for(var key in quesArray[i]){
-    //         console.log(quesArray[i].question)
-    //         question.innerHTML = quesArray[i].question
-    //     }
-    // }
-
-    question.innerHTML = quesArray[0].question
-    ans1.innerHTML = quesArray[0].Option.a
-    ans2.innerHTML = quesArray[0].Option.b
-    ans3.innerHTML = quesArray[0].Option.c
-    ans4.innerHTML = quesArray[0].Option.d
-
-
-
-
+    }
 
 }
 
 
+function selectOption(element){
+    nextBtn.style.display = "block"
+    if(element.innerHTML===quesArray[counter].answer){
+        element.classList.add("rigthAns")
+        CorrectAnsCounter++
+        TotalScore = TotalScore + 5
+        console.log(CorrectAnsCounter)
+        console.log(TotalScore)
+    }else{
+        WrongAnsCounter++
+        element.classList.add("wrongAns")
+        for (var li of liParent) {
+            console.log(li.innerHTML)
+            if(li.innerHTML == quesArray[counter].answer){
+                li.classList.add("rigthAns")
+                break
+            }
+            
+        }
 
-function ans(ele){
-    var index = 0
+        
+    }
+
+
+    for (var li of liParent) {
+        li.classList.add("liDisable")
+        
+    }
 }
 
 

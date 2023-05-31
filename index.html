@@ -15,12 +15,12 @@
     <div id="quizWrapper" class="quiz-wrapper bg-white">
         <h1 class="text-center h-color fw-bolder">Quiz App</h1>
         <form class="m-auto">
-            <div class="d-flex justify-content-between">
-                <div>
+            <div class="row justify-content-between">
+                <div class="col-md-6">
                     <label>First Name:</label> <br>
                     <input class="form-control" type="text" required placeholder="Enter First Name*">
                 </div>
-                <div>
+                <div class="col-md-6 rs-margin">
                     <label>Last Name:</label> <br>
                     <input class="form-control" type="text" required placeholder="Enter Last Name*">
                 </div>
@@ -33,12 +33,12 @@
                 <label>Contact No:</label>
                 <input class="form-control" type="text" required placeholder="Your contact no*">
             </div>
-            <div class="d-flex justify-content-between">
-                <div>
+            <div class="row justify-content-between">
+                <div class="col-md-6">
                     <label>Date</label> <br>
                     <input class="form-control" id="date" disabled type="text" placeholder="Enter First Name*">
                 </div>
-                <div>
+                <div class="col-md-6 rs-margin">
                     <label>Time</label> <br>
                     <input class="form-control" id="time" disabled type="text" placeholder="Enter Last Name*">
                 </div>
@@ -47,7 +47,7 @@
                 <div class="btn btn-success" onclick="submit()">SUBMIT</div>
             </div>
         </form>
-    </div> -->
+    </div>
 
     <div class="startBtn">
         <button class="btn btn-color" onclick="startQuiz()">Start Quiz??</button>
@@ -58,25 +58,30 @@
             <h1>QUIZ APP</h1>
         </div>
         <div class="quiz-head w90 green-border">
-            <div>
-                <h5>Ayan Sheikh</h5>
-                <p class="fw-bold">ayansheikh6600@gmail.com</p>
+            <div class="row text-center">
+                <div class="col-md-6">
+                    <h5>Ayan Sheikh</h5>
+                    <p class="fw-bold">ayansheikh6600@gmail.com</p>
+                </div>
+                <div class="col-md-6">
+                    <label class="fw-bold fs-5">Time:</label>
+                    <p class="fw-bold fs-5" id="timer">00:00</p>
+                </div>
             </div>
-            <div>
-                <label class="fw-bold fs-5">Time:</label>
-                <p class="fw-bold fs-5" id="timer">00:00</p>
 
-            </div>
         </div>
         <div class="quiz-body w90 green-border">
             <div>
                 <p class="fs-4 fw-bold" id="question">What is your name?</p>
             </div>
             <div class="w90 m-auto mt-3 fs-5">
-                <li class="q-li green-border" id="ans1" onclick="ans(this)">Ayan Sheikh</li>
-                <li class="q-li green-border mt-2" id="ans2" onclick="ans(this)">Wahaj Khan</li>
-                <li class="q-li green-border mt-2" id="ans3" onclick="ans(this)">Saim</li>
-                <li class="q-li green-border mt-2" id="ans4" onclick="ans(this)">Minhaj</li>
+                <ul class="q-li" id="liParent">
+                    <li class="">Ayan Sheikh</li>
+                    <li class="mt-2">Wahaj Khan</li>
+                    <li class="mt-2">Saim</li>
+                    <li class="mt-2">Minhaj</li>
+                </ul>
+
             </div>
         </div>
         <div class="quiz-footer w90">
@@ -84,12 +89,26 @@
                 <p>1/7</p>
             </div>
             <div>
-                <button class="btn btn-success">NEXT</button>
+                <button class="btn btn-success nextBtn" onclick="nextQuestion()">NEXT</button>
             </div>
         </div>
     </div>
 
-    
+
+    <div class="result">
+        <div class="resultChild bg-white">
+            <h1 class="text-center h-color fw-bolder">Quiz App</h1>
+            <div class="w-50 m-auto">
+                <img width="100%" class="resultImg"  src="./Assets/result.png" alt="">
+            </div>
+            <div class=" text-center">
+                <h1>Score: <Span class="score"></Span></h1>
+                <p class="fw-bold passPara">Congartulation you are passed <span class="text-green percentage">100</span>%</p>
+                <p class="fw-bold failPara">Sorry better luck next time <span class="text-red percentage">60%</span></p>
+            </div>
+        </div>
+        
+    </div>
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
