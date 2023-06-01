@@ -115,9 +115,21 @@ var score = document.querySelector(".score")
 var passPercentage = document.querySelector(".percentage")
 var failPara = document.querySelector(".failPara")
 var passPara = document.querySelector(".passPara")
-console.log(resulImg.src)
+var testTimer = document.getElementById("testTimer")
+var showFullName = document.getElementById("fullName")
+var userEmail = document.querySelector(".userEmail")
+var inputFirstName = document.querySelector(".inputFirstName").value
+var inputLastName = document.querySelector(".inputLastName").value
+var inputUserEmail = document.querySelector(".inputUserEmail").value
+var fullName = inputFirstName+inputLastName
+var timeSecond = 1 * 60;
+
+
 
 function submit() {
+    showFullName.innerHTML = fullName;
+    userEmail.innerHTML = inputUserEmail;
+
     for (var input of inputfeilds) {
         console.log("input", input.value)
         if (!input.value) {
@@ -136,7 +148,7 @@ var counter = 0;
 var CorrectAnsCounter = 0;
 var WrongAnsCounter = 0;
 var TotalScore = 0;
-var totalMark = quesArray.length*5
+var totalMark = quesArray.length * 5
 console.log(TotalScore)
 
 
@@ -146,6 +158,44 @@ for (var li of liParent) {
     li.setAttribute("onclick", "selectOption(this)")
 }
 function startQuiz() {
+    
+displayTime(timeSecond);
+
+const countDown = setInterval(() => {
+  timeSecond--;
+  displayTime(timeSecond);
+  if (timeSecond == 0 || timeSecond < 1) {
+    endCount();
+    clearInterval(countDown);
+  }
+}, 1000);
+
+function displayTime(second) {
+  const min = Math.floor(second / 60);
+  const sec = Math.floor(second % 60);
+  testTimer.innerHTML = `
+  ${min < 10 ? "0" : ""}${min}:${sec < 10 ? "0" : ""}${sec}
+  `;
+}
+
+function endCount() {
+    testTimer.innerHTML ="Time Out"
+    testTimer.style.color = "red"
+    quizQuestion.style.display = "none"
+    result.style.display = "flex"
+
+        score.innerHTML = TotalScore
+        percentage = Math.round((TotalScore / totalMark) * 100)
+        if (percentage >= 70) {
+            passPercentage.innerHTML = percentage
+            passPara.style.display = "block"
+        } else {
+            failPara.style.display = "block"
+            passPercentage.innerHTML = percentage
+            resulImg.src = "Assets/fail-01.png"
+        }
+}
+ 
     startBtn.style.display = "none"
     quizQuestion.style.display = "flex"
 
@@ -157,6 +207,23 @@ function startQuiz() {
 
 
 }
+
+// if(testTimer==0){
+//     rersulFun();
+// }
+
+// function rersulFun(){
+//     score.innerHTML = TotalScore
+//         percentage = Math.round((TotalScore / totalMark) * 100)
+//         if (percentage >= 70) {
+//             passPercentage.innerHTML = percentage
+//             passPara.style.display = "block"
+//         } else {
+//             failPara.style.display = "block"
+//             passPercentage.innerHTML = percentage
+//             resulImg.src = "Assets/fail-01.png"
+//         }
+// }
 function nextQuestion() {
     for (var li of liParent) {
         li.classList.remove("liDisable")
@@ -171,16 +238,16 @@ function nextQuestion() {
         liParent[1].innerHTML = quesArray[counter].Option.b
         liParent[2].innerHTML = quesArray[counter].Option.c
         liParent[3].innerHTML = quesArray[counter].Option.d
-    }else{
+    } else {
         quizQuestion.style.display = "none"
         result.style.display = "flex"
 
         score.innerHTML = TotalScore
-        percentage = Math.round((TotalScore/totalMark) * 100)
-        if(percentage >= 70){
+        percentage = Math.round((TotalScore / totalMark) * 100)
+        if (percentage >= 70) {
             passPercentage.innerHTML = percentage
             passPara.style.display = "block"
-        }else{
+        } else {
             failPara.style.display = "block"
             passPercentage.innerHTML = percentage
             resulImg.src = "Assets/fail-01.png"
@@ -191,33 +258,33 @@ function nextQuestion() {
 }
 
 
-function selectOption(element){
+function selectOption(element) {
     nextBtn.style.display = "block"
-    if(element.innerHTML===quesArray[counter].answer){
+    if (element.innerHTML === quesArray[counter].answer) {
         element.classList.add("rigthAns")
         CorrectAnsCounter++
         TotalScore = TotalScore + 5
         console.log(CorrectAnsCounter)
         console.log(TotalScore)
-    }else{
+    } else {
         WrongAnsCounter++
         element.classList.add("wrongAns")
         for (var li of liParent) {
             console.log(li.innerHTML)
-            if(li.innerHTML == quesArray[counter].answer){
+            if (li.innerHTML == quesArray[counter].answer) {
                 li.classList.add("rigthAns")
                 break
             }
-            
+
         }
 
-        
+
     }
 
 
     for (var li of liParent) {
         li.classList.add("liDisable")
-        
+
     }
 }
 
