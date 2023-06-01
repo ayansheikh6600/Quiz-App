@@ -118,17 +118,15 @@ var passPara = document.querySelector(".passPara")
 var testTimer = document.getElementById("testTimer")
 var showFullName = document.getElementById("fullName")
 var userEmail = document.querySelector(".userEmail")
-var inputFirstName = document.querySelector(".inputFirstName").value
-var inputLastName = document.querySelector(".inputLastName").value
-var inputUserEmail = document.querySelector(".inputUserEmail").value
-var fullName = inputFirstName+inputLastName
+var currentQuestionNum = document.getElementById("currentQuestionNum")
+var totalQuestion = document.getElementById("totalQuestion")
+
 var timeSecond = 1 * 60;
 
-
+totalQuestion.innerHTML = quesArray.length
 
 function submit() {
-    showFullName.innerHTML = fullName;
-    userEmail.innerHTML = inputUserEmail;
+
 
     for (var input of inputfeilds) {
         console.log("input", input.value)
@@ -137,7 +135,12 @@ function submit() {
             return
         }
     }
-
+    var inputFirstName = document.querySelector(".inputFirstName").value
+    var inputLastName = document.querySelector(".inputLastName").value
+    var inputUserEmail = document.querySelector(".inputUserEmail").value
+    var fullName = inputFirstName +" "+ inputLastName
+    showFullName.innerHTML = fullName;
+    userEmail.innerHTML = inputUserEmail;
     quizWrapper.style.display = "none"
     startBtn.style.display = "flex"
 
@@ -158,31 +161,31 @@ for (var li of liParent) {
     li.setAttribute("onclick", "selectOption(this)")
 }
 function startQuiz() {
-    
-displayTime(timeSecond);
 
-const countDown = setInterval(() => {
-  timeSecond--;
-  displayTime(timeSecond);
-  if (timeSecond == 0 || timeSecond < 1) {
-    endCount();
-    clearInterval(countDown);
-  }
-}, 1000);
+    displayTime(timeSecond);
 
-function displayTime(second) {
-  const min = Math.floor(second / 60);
-  const sec = Math.floor(second % 60);
-  testTimer.innerHTML = `
+    const countDown = setInterval(() => {
+        timeSecond--;
+        displayTime(timeSecond);
+        if (timeSecond == 0 || timeSecond < 1) {
+            endCount();
+            clearInterval(countDown);
+        }
+    }, 1000);
+
+    function displayTime(second) {
+        const min = Math.floor(second / 60);
+        const sec = Math.floor(second % 60);
+        testTimer.innerHTML = `
   ${min < 10 ? "0" : ""}${min}:${sec < 10 ? "0" : ""}${sec}
   `;
-}
+    }
 
-function endCount() {
-    testTimer.innerHTML ="Time Out"
-    testTimer.style.color = "red"
-    quizQuestion.style.display = "none"
-    result.style.display = "flex"
+    function endCount() {
+        testTimer.innerHTML = "Time Out"
+        testTimer.style.color = "red"
+        quizQuestion.style.display = "none"
+        result.style.display = "flex"
 
         score.innerHTML = TotalScore
         percentage = Math.round((TotalScore / totalMark) * 100)
@@ -194,8 +197,8 @@ function endCount() {
             passPercentage.innerHTML = percentage
             resulImg.src = "Assets/fail-01.png"
         }
-}
- 
+    }
+
     startBtn.style.display = "none"
     quizQuestion.style.display = "flex"
 
@@ -208,22 +211,6 @@ function endCount() {
 
 }
 
-// if(testTimer==0){
-//     rersulFun();
-// }
-
-// function rersulFun(){
-//     score.innerHTML = TotalScore
-//         percentage = Math.round((TotalScore / totalMark) * 100)
-//         if (percentage >= 70) {
-//             passPercentage.innerHTML = percentage
-//             passPara.style.display = "block"
-//         } else {
-//             failPara.style.display = "block"
-//             passPercentage.innerHTML = percentage
-//             resulImg.src = "Assets/fail-01.png"
-//         }
-// }
 function nextQuestion() {
     for (var li of liParent) {
         li.classList.remove("liDisable")
@@ -254,6 +241,7 @@ function nextQuestion() {
         }
 
     }
+    currentQuestionNum.innerHTML = counter + 1
 
 }
 
