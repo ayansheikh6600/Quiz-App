@@ -139,6 +139,12 @@ function submit() {
     var inputLastName = document.querySelector(".inputLastName").value
     var inputUserEmail = document.querySelector(".inputUserEmail").value
     var fullName = inputFirstName +" "+ inputLastName
+    for (var check of inputUserEmail) {
+        if(check!="@"){
+            alert("Enter Valid email")
+            return
+        }
+    }
     showFullName.innerHTML = fullName;
     userEmail.innerHTML = inputUserEmail;
     quizWrapper.style.display = "none"
