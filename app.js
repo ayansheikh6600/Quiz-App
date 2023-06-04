@@ -108,11 +108,13 @@ var quizQuestion = document.querySelector(".quiz-q")
 var nextBtn = document.querySelector(".nextBtn")
 var question = document.getElementById("question")
 var liParent = document.getElementById("liParent").children
+// console.log(liParent)
 /// Result Element Get
 var result = document.querySelector(".result")
 var resulImg = document.querySelector(".resultImg")
 var score = document.querySelector(".score")
-var passPercentage = document.querySelector(".percentage")
+var passPercentage = document.querySelector(".passPercentage")
+var failPercentage = document.querySelector(".failPercentage")
 var failPara = document.querySelector(".failPara")
 var passPara = document.querySelector(".passPara")
 var testTimer = document.getElementById("testTimer")
@@ -155,7 +157,7 @@ var CorrectAnsCounter = 0;
 var WrongAnsCounter = 0;
 var TotalScore = 0;
 var totalMark = quesArray.length * 5
-console.log(TotalScore)
+var percentage;
 
 
 
@@ -197,7 +199,7 @@ function startQuiz() {
             passPara.style.display = "block"
         } else {
             failPara.style.display = "block"
-            passPercentage.innerHTML = percentage
+            failPercentage.innerHTML = percentage
             resulImg.src = "Assets/fail-01.png"
         }
     }
@@ -239,7 +241,7 @@ function nextQuestion() {
             passPara.style.display = "block"
         } else {
             failPara.style.display = "block"
-            passPercentage.innerHTML = percentage
+            failPercentage.innerHTML = percentage
             resulImg.src = "Assets/fail-01.png"
         }
 
